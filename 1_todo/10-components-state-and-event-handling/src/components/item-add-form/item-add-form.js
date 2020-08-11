@@ -13,7 +13,8 @@ export default class ItemAddForm extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-    this.props.onItemAdded(this.state.label);
+		this.props.onItemAdded(this.state.label);
+		this.setState({ label: '' });
 	};
 
 	render() {
@@ -21,8 +22,9 @@ export default class ItemAddForm extends Component {
 			<form className="item-add-form d-flex" onSubmit={this.onSubmit}>
 				<input
 					type="text"
+					value={this.state.label}
 					className="form-control"
-          placeholder="What needs to be done"
+					placeholder="What needs to be done"
 					onChange={this.onLabelChange}
 				/>
 				<button className="btn btn-outline-secondary">Add Item</button>
