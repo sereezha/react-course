@@ -11,9 +11,9 @@ import './app.scss';
 export default class app extends Component {
 	state = {
 		todoData: [
-			{ label: 'Drink Coffee', important: false, done: false, id: 1 },
-			{ label: 'Make Awesome App', important: true, done: false, id: 2 },
-			{ label: 'Have a lunch', important: false, done: false, id: 3 },
+			{ label: 'Drink Coffee', important: false, id: 1 },
+			{ label: 'Make Awesome App', important: true, id: 2 },
+			{ label: 'Have a lunch', important: false, id: 3 },
 		],
 	};
 
@@ -52,11 +52,9 @@ export default class app extends Component {
 
 	render() {
 		const { todoData } = this.state;
-		const notDoneTodo = todoData.filter((todo) => !todo.done).length;
-		const doneTodo = todoData.filter((todo) => todo.done).length;
 		return (
 			<div className="todo-app">
-				<AppHeader toDo={notDoneTodo} done={doneTodo} />
+				<AppHeader toDo={1} done={3} />
 				<div className="top-panel d-flex">
 					<SearchPanel />
 					<ItemStatusFilter />
