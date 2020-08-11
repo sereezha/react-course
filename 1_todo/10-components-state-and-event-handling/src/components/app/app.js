@@ -11,9 +11,9 @@ import './app.scss';
 export default class app extends Component {
 	state = {
 		todoData: [
-			{ label: 'Drink Coffee', important: false, id: 1 },
-			{ label: 'Make Awesome App', important: true, id: 2 },
-			{ label: 'Have a lunch', important: false, id: 3 },
+			{ label: 'Drink Coffee', important: false, done: false, id: 1 },
+			{ label: 'Make Awesome App', important: true, done: false, id: 2 },
+			{ label: 'Have a lunch', important: false, done: false, id: 3 },
 		],
 	};
 
@@ -35,18 +35,28 @@ export default class app extends Component {
 		};
 
 		this.setState(({ todoData }) => {
-      const newArr = [...todoData, newItem]
+			const newArr = [...todoData, newItem];
 			return {
 				todoData: newArr,
 			};
 		});
 	};
 
+	onToggleImportant = (id) => {
+		console.log('Toggle Important', id);
+	};
+
+	onToggleDone = (id) => {
+		console.log('Toggle Done', id);
+	};
+
 	render() {
 		const { todoData } = this.state;
+		const notDoneTodo = todoData.filter((todo) => !todo.done).length;
+		const doneTodo = todoData.filter((todo) => todo.done).length;
 		return (
 			<div className="todo-app">
-				<AppHeader toDo={1} done={3} />
+				<AppHeader toDo={notDoneTodo} done={doneTodo} />
 				<div className="top-panel d-flex">
 					<SearchPanel />
 					<ItemStatusFilter />
@@ -56,6 +66,8 @@ export default class app extends Component {
 					onDeleted={(id) => {
 						this.deleteItem(id);
 					}}
+					onToggleImportant={(id) => this.onToggleImportant(id)}
+					onToggleDone={(id) => this.onToggleDone(id)}
 				/>
 				<ItemAddForm onItemAdded={this.addItem} />
 			</div>
