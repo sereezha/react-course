@@ -7,7 +7,7 @@ import ItemStatusFilter from '../item-status-filter';
 
 import './app.css';
 
-export default class app extends Component {
+export default class App extends Component {
 	state = {
 		todoData: [
 			{ label: 'Drink Coffee', important: false, id: 1 },
