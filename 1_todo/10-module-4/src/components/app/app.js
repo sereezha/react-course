@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
-import AppHeader from '../app-header';
-import SearchPanel from '../search-panel';
-import TodoList from '../todo-list';
-import ItemStatusFilter from '../item-status-filter';
+import AppHeader from 'components/app-header';
+import SearchPanel from 'components/search-panel';
+import TodoList from 'components/todo-list';
+import ItemStatusFilter from 'components/item-status-filter';
+import ItemAddForm from 'components/item-add-form';
 
-import './app.css';
+import './app.scss';
 
 export default class App extends Component {
 	state = {
@@ -15,6 +16,9 @@ export default class App extends Component {
 			{ label: 'Have a lunch', important: false, id: 3 },
 		],
 	};
+
+	maxId = 100;
+
 	deleteItem = (id) => {
 		this.setState(({ todoData }) => {
 			const idx = todoData.findIndex((el) => el.id === id);
@@ -22,6 +26,22 @@ export default class App extends Component {
 			return { todoData: newArray };
 		});
 	};
+
+	addItem = (text) => {
+		const newItem = {
+			label: text,
+			important: false,
+			id: this.maxId++,
+		};
+
+		this.setState(({ todoData }) => {
+      const newArr = [...todoData, newItem]
+			return {
+				todoData: newArr,
+			};
+		});
+	};
+
 	render() {
 		const { todoData } = this.state;
 		return (
@@ -37,6 +57,7 @@ export default class App extends Component {
 						this.deleteItem(id);
 					}}
 				/>
+				<ItemAddForm onItemAdded={this.addItem} />
 			</div>
 		);
 	}
